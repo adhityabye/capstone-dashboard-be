@@ -1,25 +1,16 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+require("dotenv").config();
 
-dotenv.config();
 const uri = process.env.MONGO_URI;
 
 const connectDB = async () => {
   try {
-    await MongoTopologyClosedError.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      dbName: "capstone-backend",
-    });
-  } catch (e) {
-    console.error("Database connection failed:", e);
-    process.exit(1);
+    await mongoose.connect(uri, { dbName: "capstone-backend" });
+    console.log("Database connected successfully!");
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    process.exit(1); 
   }
 };
 
-mongoose.connection.on("error", (err) => {
-  console.error("MongoDB connection error:", err);
-  process.exit(1);
-});
-
-module.exports = { connectDB, uri };
+module.exports = connectDB;
