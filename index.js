@@ -8,15 +8,13 @@ const billingRoutes = require("./routes/billing.routes"); // Import billing rout
 dotenv.config();
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://capstone-dashboard-be.vercel.app",
-    credentials: true,
-    optionSuccessStatus: 200,
-  })
-);
-
-app.use(cors(corsOptions));
+// CORS Configuration
+const corsOptions = {
+  origin: "capstone-dashboard-be.vercel.app", // Allow all origins for testing (restrict in production)
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions)); // Use CORS only once
 
 app.use(express.json());
 
@@ -35,5 +33,7 @@ app.get("/", (req, res) => {
 // Start the Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;
