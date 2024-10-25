@@ -8,7 +8,16 @@ const billingRoutes = require("./routes/billing.routes"); // Import billing rout
 dotenv.config();
 const app = express();
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({
+    origin: "https://capstone-dashboard-be.vercel.app",
+    credentials: true,
+    optionSuccessStatus: 200,
+  })
+);
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // Connect to MongoDB
